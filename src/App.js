@@ -2,15 +2,101 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
+var now = new Date();
+
 const DUMMY_DATA = [
   {
-    senderId: "perborgen",
-    text: "who'll win?"
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
   },
   {
-    senderId: "janedoe",
-    text: "who'll win?"
-  }
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+  },
+  {
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
+  },
+  {
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+  },
+  {
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+  },
+  {
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+  },
+  {
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
+  },
+  {
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+  },
 ]
 
 const Title = () => {
@@ -22,13 +108,20 @@ class MsgList extends React.Component {
     return (
       <ul className="msg-list">{
         this.props.messages.map((msg,i) => {
+          let cls = "";
+
+          if (msg.senderId === "Alice") {
+            cls = "bubble-left";
+          } else {
+            cls = "bubble-right";
+          }
+
           return (
-            <li key={i}>
+            <li key={i} className={cls}>
               <div>
-                {msg.senderId}
-              </div>
-              <div>
-                {msg.text}
+                <p>{msg.senderId}</p>
+                <p>{msg.timestamp}</p>
+                <p>{msg.text}</p>
               </div>
             </li>
           )
@@ -41,28 +134,29 @@ class MsgList extends React.Component {
 class MsgForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
+    this.state = { usr: 'Alice', txt: ''};
+    this.handleChange_txt = this.handleChange_txt.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleChange_txt(event) {
+    this.setState({
+      txt: event.target.value
+    });
   }
 
   handleSubmit(event) {
-    // alert("hello");
     event.preventDefault();
-    this.props.sendMessage(this.state.value)
-    this.setState({value: ""});
+    this.props.sendMessage(this.state);
+    (this.state.usr === "Alice") ? this.setState({usr: 'Bob'}) : this.setState({usr: 'Alice'});
+    this.setState({txt: ""})
   }
 
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.state.value} onChange={this.handleChange} ></input>
-        <input type="submit" value="Send" ></input>
+        <input type="text" value={this.state.txt} name="txt" id="txt" onChange={this.handleChange_txt} ></input>
+        <input type="submit" id="sbm" value="Send" ></input>
       </form>
     )
   }
@@ -80,12 +174,17 @@ class App extends React.Component {
   }
 
   sendMessage (msg) {
-    // this.setState({
-    //   messages: []
-    // })
+    var now = new Date();
     DUMMY_DATA.push({
-      senderId: "perborgen",
-      text: msg
+      senderId: msg.usr,
+      text: msg.txt,
+      timestamp: now.toLocaleDateString(undefined, {
+        day : 'numeric',
+        month : 'short',
+        year : 'numeric',
+        hour : 'numeric',
+        minute : 'numeric',
+      }),
     })
 
     this.setState({
