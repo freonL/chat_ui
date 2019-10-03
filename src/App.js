@@ -15,7 +15,53 @@ const DUMMY_DATA = [
       minute : 'numeric',
 
     }),
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+    text: "Lorem ipsum dolor sit amet"
+  },
+  {
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Ut enim ad minim veniam"
+  },
+  {
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Duis aute irure dolor in reprehenderit"
+  },
+  {
+    senderId: "Bob",
+    timestamp: now.toLocaleDateString(undefined, {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+    }),
+    text: "Excepteur sint occaecat cupidatat non proident"
+  },
+  {
+    senderId: "Alice",
+    timestamp: now.toLocaleDateString(undefined,  {
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour : 'numeric',
+      minute : 'numeric',
+
+    }),
+    text: "Lorem ipsum dolor sit amet"
   },
   {
     senderId: "Bob",
@@ -38,7 +84,7 @@ const DUMMY_DATA = [
       minute : 'numeric',
 
     }),
-    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
+    text: "Duis aute irure dolor in reprehenderit "
   },
   {
     senderId: "Bob",
@@ -49,53 +95,7 @@ const DUMMY_DATA = [
       hour : 'numeric',
       minute : 'numeric',
     }),
-    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-  },
-  {
-    senderId: "Alice",
-    timestamp: now.toLocaleDateString(undefined,  {
-      day : 'numeric',
-      month : 'short',
-      year : 'numeric',
-      hour : 'numeric',
-      minute : 'numeric',
-
-    }),
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-  },
-  {
-    senderId: "Bob",
-    timestamp: now.toLocaleDateString(undefined, {
-      day : 'numeric',
-      month : 'short',
-      year : 'numeric',
-      hour : 'numeric',
-      minute : 'numeric',
-    }),
-    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-  },
-  {
-    senderId: "Alice",
-    timestamp: now.toLocaleDateString(undefined,  {
-      day : 'numeric',
-      month : 'short',
-      year : 'numeric',
-      hour : 'numeric',
-      minute : 'numeric',
-
-    }),
-    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
-  },
-  {
-    senderId: "Bob",
-    timestamp: now.toLocaleDateString(undefined, {
-      day : 'numeric',
-      month : 'short',
-      year : 'numeric',
-      hour : 'numeric',
-      minute : 'numeric',
-    }),
-    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+    text: "Excepteur sint occaecat cupidatat non proident"
   },
 ]
 
@@ -106,7 +106,7 @@ const Title = () => {
 class MsgList extends React.Component {
   render () {
     return (
-      <ul className="msg-list">{
+      <div className="msg-list">{
         this.props.messages.map((msg,i) => {
           let cls = "";
 
@@ -117,16 +117,18 @@ class MsgList extends React.Component {
           }
 
           return (
-            <li key={i} className={cls}>
-              <div>
-                <p>{msg.senderId}</p>
-                <p>{msg.timestamp}</p>
-                <p>{msg.text}</p>
+            <div key={i} className="line" >
+              <div className={cls}>
+                <div className="bubble">
+                  <p>{msg.senderId}</p>
+                  <p>{msg.timestamp}</p>
+                  <p>{msg.text}</p>
+                </div>
               </div>
-            </li>
+            </div>
           )
         })
-      }</ul>
+      }</div>
     );
   }
 }
@@ -154,9 +156,9 @@ class MsgForm extends React.Component {
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.state.txt} name="txt" id="txt" onChange={this.handleChange_txt} ></input>
-        <input type="submit" id="sbm" value="Send" ></input>
+      <form onSubmit={this.handleSubmit} className="form-inline">
+        <input type="text" value={this.state.txt} name="txt" id="txt" onChange={this.handleChange_txt} className="form-text"></input>
+        <input type="submit" id="sbm" value="Send" className="btn btn-primary"></input>
       </form>
     )
   }
